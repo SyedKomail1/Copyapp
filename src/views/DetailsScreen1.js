@@ -11,9 +11,101 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import COLORS from "../consts/colors";
+import { Ionicons } from "@expo/vector-icons";
+import Input from "../../components/Input";
 
 const DetailsScreen1 = ({ navigation, route }) => {
   const post = route.params;
+  const [inputs, setInputs] = React.useState({
+    destination: "",
+    fullname: "",
+    stay: "",
+    passenger: "",
+    end: "",
+    date: "",
+    input: "",
+  });
+  const [errors, setErrors] = React.useState({});
+  const handleOnchange = (text, input) => {
+    setInputs((prevState) => ({ ...prevState, [input]: text }));
+  };
+  const handleError = (error, input) => {
+    setErrors((prevState) => ({ ...prevState, [input]: error }));
+  };
+  const validate = () => {
+    Keyboard.dismiss();
+    let isValid = true;
+
+    if (!inputs.email) {
+      handleError("Please input email", "email");
+      isValid = false;
+    } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
+      handleError(" Enter Email in Correct Format ", "email");
+
+      isValid = false;
+    }
+
+    if (!inputs.fname) {
+      handleError("Please input firstname", "fname");
+      isValid = false;
+    }
+
+    if (!inputs.lname) {
+      handleError("Please input lastname", "lname");
+      isValid = false;
+    }
+
+    if (!inputs.city) {
+      handleError("Please input city", "city");
+      isValid = false;
+    }
+
+    if (!inputs.country) {
+      handleError("Please input country", "country");
+      isValid = false;
+    }
+
+    if (!inputs.role) {
+      handleError("Please input role", "role");
+      isValid = false;
+    }
+
+    if (!inputs.gender) {
+      handleError("Please input gender", "gender");
+
+      isValid = false;
+    }
+
+    if (!inputs.phoneNumber) {
+      handleError("Please input phone number", "phoneNumber");
+      isValid = false;
+    } else if (inputs.phoneNumber.length < 11) {
+      handleError("Phone Number lenght is less than 11", "phoneNumber");
+    }
+    isValid = false;
+
+    if (!inputs.cnic) {
+      handleError("Please input cnic", "cnic");
+    } else if (inputs.cnic.length < 13) {
+      handleError("Cnic should be 13 digit", "cnic");
+    }
+    isValid = false;
+
+    isValid = false;
+
+    if (!inputs.password) {
+      handleError("Please input password", "password");
+      isValid = false;
+    } else if (inputs.password.length < 5) {
+      handleError("Min password length of 5", "password");
+      isValid = false;
+    }
+
+    if (isValid) {
+      addData();
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
       <ScrollView>
@@ -21,7 +113,7 @@ const DetailsScreen1 = ({ navigation, route }) => {
 
         <ImageBackground
           style={style.cardImage}
-          source={require("../../assets/onboardImage2.jpg")}
+          source={{ uri: post.tourpics[0] }}
         >
           <View style={style.header}>
             <Icon
@@ -67,7 +159,12 @@ const DetailsScreen1 = ({ navigation, route }) => {
 
         <View style={style.detailsContainer}>
           <View style={style.iconContainer}>
-            <Icon name="favorite" color={COLORS.red} size={30} />
+            <Icon
+              name="map"
+              size={28}
+              color={COLORS.black}
+              onPress={() => navigation.navigate("home")}
+            />
           </View>
 
           <View style={{ flexDirection: "row", marginTop: 10 }}>
@@ -93,7 +190,7 @@ const DetailsScreen1 = ({ navigation, route }) => {
                 color: COLORS.black,
               }}
             >
-              Tour Starting Day {post.addedOn}
+              Tour Starting Day : {post.startDate}
             </Text>
           </View>
 
@@ -106,7 +203,7 @@ const DetailsScreen1 = ({ navigation, route }) => {
                 color: COLORS.black,
               }}
             >
-              To {post.source.name}
+              To : {post.source.name}
             </Text>
           </View>
 
@@ -119,7 +216,7 @@ const DetailsScreen1 = ({ navigation, route }) => {
                 color: COLORS.black,
               }}
             >
-              From {post.destination.name}
+              From : {post.destination.name}
             </Text>
           </View>
 
@@ -132,7 +229,7 @@ const DetailsScreen1 = ({ navigation, route }) => {
               color: COLORS.black,
             }}
           >
-            About the trip
+            About the trip :
           </Text>
 
           <Text
@@ -140,25 +237,26 @@ const DetailsScreen1 = ({ navigation, route }) => {
               marginTop: 20,
               marginLeft: 5,
 
-              // marginBottom: 20,
+              marginBottom: -20,
               fontSize: 15,
               color: COLORS.black,
             }}
           >
             {post.description}
           </Text>
-
-          <Text
-            style={{
-              marginTop: 20,
-              lineHeight: 22,
-              marginBottom: 20,
-              fontSize: 20,
-              color: COLORS.primary,
-            }}
-          ></Text>
         </View>
-
+        <View style={{ marginLeft: 10 }}>
+          <Input
+            keyboardType="numeric"
+            maxLength={1}
+            onChangeText={(text) => handleOnchange(text, "fname")}
+            onFocus={() => handleError(null, "fname")}
+            //iconName="account-outline"
+            label="Enter No of Seats"
+            placeholder="No of seats"
+            error={errors.fname}
+          />
+        </View>
         <View style={style.footer}>
           <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
             <Text

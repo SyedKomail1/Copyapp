@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,7 +8,11 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  FlatList,
 } from "react-native";
+import axios from "axios";
+import * as SecureStore from "expo-secure-store";
+
 import UserAvatar from "react-native-user-avatar";
 
 import COLORS from "../consts/colors";
@@ -17,8 +21,13 @@ import Input from "../../components/Input";
 import Loader from "../../components/Looder";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Shared from "../../components/Shared";
+import { Avatar } from "react-native-paper";
 
 const UserProfile = ({ navigation }) => {
+  const [user, setUser] = useState([]);
+  const [image, setImage] = useState(null);
+  const [posts, setPosts] = useState([]);
+
   const myCustomShare = async () => {
     const shareOptions = {
       message: "This is a test message",
@@ -29,6 +38,24 @@ const UserProfile = ({ navigation }) => {
       console.log("Error => ", error);
     }
   };
+
+  async function getValueFor(token) {
+    return await SecureStore.getItemAsync(token);
+  }
+  useEffect(async () => {
+    const token = await getValueFor("token");
+
+    console.log("called axios in user profile", getValueFor("token"));
+    const axiosPosts = async () => {
+      const response = await axios.get(
+        "https://tourbook-backend.herokuapp.com/user/mydetails",
+        { headers: { "x-auth-token": token } }
+      );
+      setPosts(response.data.data);
+      console.log(response.data.data);
+    };
+    axiosPosts();
+  }, []);
 
   return (
     <View>
@@ -63,22 +90,20 @@ const UserProfile = ({ navigation }) => {
               borderColor: "white",
             }}
           ></Image>
-          <UserAvatar
-            size={100}
-            name="User Name"
+
+          <Avatar.Image
             style={{
-              width: 170,
-              height: 170,
-              borderRadius: 100,
-              marginTop: -175,
-              borderWidth: 7,
-              borderColor: "white",
+              marginTop: -165,
             }}
+            size={150}
+            source={{ uri: posts.profilePicture }}
           />
+
           {/* bgColors={['#ccc', '#fafafa', '#ccaabb']} */}
           {/* <Image source={require('../../assets/onboardImage3.jpg')} style={{width:170, height:170,
                  borderRadius:100, marginTop:-175, borderWidth: 7,
                  borderColor: "white"}}></Image> */}
+
           <Text
             style={{
               fontSize: 25,
@@ -87,17 +112,7 @@ const UserProfile = ({ navigation }) => {
               color: "black",
             }}
           >
-            User Name
-          </Text>
-          <Text
-            style={{
-              fontSize: 15,
-              fontWeight: "bold",
-              padding: 1,
-              color: "grey",
-            }}
-          >
-            Role Here
+            {posts.fname} {posts.lname}
           </Text>
         </View>
 
@@ -137,7 +152,7 @@ const UserProfile = ({ navigation }) => {
             marginTop: 20,
           }}
         >
-          <Text>Edit Profile</Text>
+          <Text>{posts.country}</Text>
         </View>
 
         <View
@@ -155,25 +170,7 @@ const UserProfile = ({ navigation }) => {
             marginTop: 20,
           }}
         >
-          <Text>Company Name</Text>
-        </View>
-
-        <View
-          style={{
-            alignSelf: "center",
-            flexDirection: "row",
-            justifyContent: "center",
-            backgroundColor: "#fff",
-            width: "90%",
-            padding: 20,
-            paddingBottom: 22,
-            borderRadius: 10,
-            shadowopacity: 80,
-            elevation: 15,
-            marginTop: 20,
-          }}
-        >
-          <Text>Country</Text>
+          <Text> {posts.userType}</Text>
         </View>
         <View
           style={{
@@ -190,7 +187,7 @@ const UserProfile = ({ navigation }) => {
             marginTop: 20,
           }}
         >
-          <Text>Address</Text>
+          <Text> {posts.balance}</Text>
         </View>
 
         <View
@@ -209,6 +206,26 @@ const UserProfile = ({ navigation }) => {
           }}
         >
           <Text onPress={() => navigation.navigate("Contact")}>Contact us</Text>
+        </View>
+
+        <View
+          style={{
+            alignSelf: "center",
+            flexDirection: "row",
+            justifyContent: "center",
+            backgroundColor: "#fff",
+            width: "90%",
+            padding: 20,
+            paddingBottom: 22,
+            borderRadius: 10,
+            shadowopacity: 80,
+            elevation: 15,
+            marginTop: 20,
+          }}
+        >
+          <Text onPress={() => navigation.navigate("About")}>
+            About Company{" "}
+          </Text>
         </View>
 
         <Shared />

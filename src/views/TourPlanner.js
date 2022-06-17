@@ -10,13 +10,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import { Picker } from "@react-native-picker/picker";
+
 import COLORS from "../consts/colors";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Loader from "../../components/Looder";
 import { Ionicons } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Picker } from "@react-native-picker/picker";
 
 const TourPlanner = ({ navigation }) => {
   const [inputs, setInputs] = React.useState({
@@ -203,9 +204,9 @@ const TourPlanner = ({ navigation }) => {
           <Button title="Validate" onPress={validate} />
 
           <Button
-          title="Create"
-          onPress={() => navigation.navigate("Tourplannedpage")}
-        />
+            title="Create"
+            onPress={() => navigation.navigate("Tourplannedpage")}
+          />
 
           <Text
             style={{

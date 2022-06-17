@@ -17,7 +17,7 @@ const Started = ({ navigation }) => {
       <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
       <ImageBackground
         style={{ flex: 1 }}
-        source={require("../../assets/back1234.jpg")}
+        source={require("../../assets/onboardImage333.jpg")}
       >
         <View style={style.details}>
           <TouchableOpacity

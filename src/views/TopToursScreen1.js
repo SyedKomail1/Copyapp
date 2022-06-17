@@ -73,7 +73,9 @@ const TopToursScreen1 = ({ navigation }) => {
       >
         <ImageBackground
           style={style.cardImage}
+          //source={require("../../assets/location2.jpg")}
           source={{ uri: post.tourpics[0] }}
+          //  source={{ uri: post.tourpics[0] }}
         >
           <Text
             style={{

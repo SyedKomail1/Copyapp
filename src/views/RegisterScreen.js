@@ -4,6 +4,7 @@ import {
   View,
   Text,
   SafeAreaView,
+  ImageBackground,
   Keyboard,
   ScrollView,
   Alert,
@@ -45,7 +46,8 @@ const RegisterScreen = ({ navigation }) => {
       handleError("Please input email", "email");
       isValid = false;
     } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
-      handleError("Please input a valid email", "email");
+      handleError(" Enter Email in Correct Format ", "email");
+
       isValid = false;
     }
 
@@ -76,18 +78,26 @@ const RegisterScreen = ({ navigation }) => {
 
     if (!inputs.gender) {
       handleError("Please input gender", "gender");
+
       isValid = false;
     }
 
     if (!inputs.phoneNumber) {
       handleError("Please input phone number", "phoneNumber");
       isValid = false;
+    } else if (inputs.phoneNumber.length < 11) {
+      handleError("Phone Number lenght is less than 11", "phoneNumber");
     }
+    isValid = false;
 
     if (!inputs.cnic) {
       handleError("Please input cnic", "cnic");
-      isValid = false;
+    } else if (inputs.cnic.length < 13) {
+      handleError("Cnic should be 13 digit", "cnic");
     }
+    isValid = false;
+
+    isValid = false;
 
     if (!inputs.password) {
       handleError("Please input password", "password");
@@ -96,8 +106,11 @@ const RegisterScreen = ({ navigation }) => {
       handleError("Min password length of 5", "password");
       isValid = false;
     }
+    console.log("\n called axios1\n");
 
     if (isValid) {
+      console.log("\n called axios2\n");
+
       addData();
     }
   };
@@ -147,112 +160,121 @@ const RegisterScreen = ({ navigation }) => {
   };
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.white, flex: 1 }}>
-      <Loader visible={loading} />
-      <ScrollView
-        contentContainerStyle={{ paddingTop: 50, paddingHorizontal: 20 }}
+      <ImageBackground
+        style={{ flex: 1 }}
+        source={require("../../assets/register.jpg")}
       >
-        <Text style={{ color: COLORS.black, fontSize: 40, fontWeight: "bold" }}>
-          Register
-        </Text>
-        <Text style={{ color: COLORS.grey, fontSize: 18, marginVertical: 10 }}>
-          Enter Your Details to Register
-        </Text>
-        <View style={{ marginVertical: 20 }}>
-          <Input
-            onChangeText={(text) => handleOnchange(text, "email")}
-            onFocus={() => handleError(null, "email")}
-            Name="email-outline"
-            label="Email"
-            placeholder="Enter your email address"
-            error={errors.email}
-          />
+        <Loader visible={loading} />
+        <ScrollView
+          contentContainerStyle={{ paddingTop: 50, paddingHorizontal: 20 }}
+        >
+          <Text
+            style={{ color: COLORS.black, fontSize: 40, fontWeight: "bold" }}
+          >
+            Register
+          </Text>
+          <Text
+            style={{ color: COLORS.grey, fontSize: 18, marginVertical: 10 }}
+          >
+            Enter Your Details to Register
+          </Text>
+          <View style={{ marginVertical: 20 }}>
+            <Input
+              onChangeText={(text) => handleOnchange(text, "email")}
+              onFocus={() => handleError(null, "email")}
+              Name="email-outline"
+              label="Email"
+              placeholder="Enter your email address"
+              error={errors.email}
+            />
 
-          <Input
-            onChangeText={(text) => handleOnchange(text, "fname")}
-            onFocus={() => handleError(null, "fname")}
-            Name="account-outline"
-            label="First Name"
-            placeholder="Enter your firstname"
-            error={errors.fname}
-          />
+            <Input
+              onChangeText={(text) => handleOnchange(text, "fname")}
+              onFocus={() => handleError(null, "fname")}
+              Name="account-outline"
+              label="First Name"
+              placeholder="Enter your firstname"
+              error={errors.fname}
+            />
 
-          <Input
-            onChangeText={(text) => handleOnchange(text, "lname")}
-            onFocus={() => handleError(null, "lname")}
-            Name="account-outline"
-            label="Last Name"
-            placeholder="Enter your lastname"
-            error={errors.lname}
-          />
+            <Input
+              onChangeText={(text) => handleOnchange(text, "lname")}
+              onFocus={() => handleError(null, "lname")}
+              Name="account-outline"
+              label="Last Name"
+              placeholder="Enter your lastname"
+              error={errors.lname}
+            />
 
-          <Input
-            onChangeText={(text) => handleOnchange(text, "gender")}
-            onFocus={() => handleError(null, "gender")}
-            //Name="account-outline"
-            label="Gender"
-            placeholder="Enter your Gender"
-            error={errors.gender}
-          />
+            <Input
+              onChangeText={(text) => handleOnchange(text, "gender")}
+              onFocus={() => handleError(null, "gender")}
+              //Name="account-outline"
+              label="Gender"
+              placeholder="Enter your Gender"
+              error={errors.gender}
+            />
 
-          <Input
-            onChangeText={(text) => handleOnchange(text, "city")}
-            onFocus={() => handleError(null, "city")}
-            //Name="account-outline"
-            label="city"
-            placeholder="Enter the city"
-            error={errors.city}
-          />
+            <Input
+              onChangeText={(text) => handleOnchange(text, "city")}
+              onFocus={() => handleError(null, "city")}
+              //Name="account-outline"
+              label="city"
+              placeholder="Enter the city"
+              error={errors.city}
+            />
 
-          <Input
-            onChangeText={(text) => handleOnchange(text, "country")}
-            onFocus={() => handleError(null, "country")}
-            //Name="account-outline"
-            label="country"
-            placeholder="Enter your country"
-            error={errors.country}
-          />
+            <Input
+              onChangeText={(text) => handleOnchange(text, "country")}
+              onFocus={() => handleError(null, "country")}
+              //Name="account-outline"
+              label="country"
+              placeholder="Enter your country"
+              error={errors.country}
+            />
 
-          <Input
-            keyboardType="numeric"
-            onChangeText={(text) => handleOnchange(text, "cnic")}
-            onFocus={() => handleError(null, "cnic")}
-            Name="phone-outline"
-            label="CNIC"
-            placeholder="Enter your cnic"
-            error={errors.cnic}
-          />
+            <Input
+              keyboardType="numeric"
+              onChangeText={(text) => handleOnchange(text, "cnic")}
+              maxLength={13}
+              onFocus={() => handleError(null, "cnic")}
+              Name="phone-outline"
+              label="CNIC"
+              placeholder="Enter your cnic"
+              error={errors.cnic}
+            />
 
-          <Input
-            keyboardType="numeric"
-            minLength={10}
-            maxLength={10}
-            onChangeText={(text) => handleOnchange(text, "phoneNumber")}
-            onFocus={() => handleError(null, "phoneNumber")}
-            Name="phone-outline"
-            label="Phone Number"
-            placeholder="Enter your phone no"
-            error={errors.phoneNumber}
-          />
-          <Input
-            onChangeText={(text) => handleOnchange(text, "password")}
-            onFocus={() => handleError(null, "password")}
-            Name="lock-outline"
-            label="Password"
-            placeholder="Enter your password"
-            error={errors.password}
-            password
-          />
+            <Input
+              keyboardType="numeric"
+              minLength={11}
+              maxLength={11}
+              onChangeText={(text) => handleOnchange(text, "phoneNumber")}
+              onFocus={() => handleError(null, "phoneNumber")}
+              Name="phone-outline"
+              label="Phone Number"
+              placeholder="Enter your phone no"
+              error={errors.phoneNumber}
+            />
+            <Input
+              onChangeText={(text) => handleOnchange(text, "password")}
+              onFocus={() => handleError(null, "password")}
+              Name="lock-outline"
+              label="Password"
+              placeholder="Enter your password"
+              error={errors.password}
+              password
+            />
 
-          <Input
-            onChangeText={(text) => handleOnchange(text, "role")}
-            onFocus={() => handleError(null, "role")}
-            Name="account-outline"
-            label="Role"
-            placeholder="tourists, tourguide, agency"
-            error={errors.role}
-          />
+            <Input
+              onChangeText={(text) => handleOnchange(text, "role")}
+              onFocus={() => handleError(null, "role")}
+              Name="account-outline"
+              label="Role"
+              placeholder="tourist,vendor"
+              error={errors.role}
+            />
 
-          {/* <View style={{ flex: 1, flexDirection: "row" }}>
+            {/* <View style={{ flex: 1, flexDirection: "row" }}>
             <View style={{ flex: 1 }}>
               <Picker
                 selectedValue={selectedLanguage}
@@ -264,25 +286,25 @@ const RegisterScreen = ({ navigation }) => {
                 <Picker.Item label="Tourist " value="java" />
                 <Picker.Item label="Agency" value="js" />
                 <Picker.Item label="Tour Guide" value="js" />
-
               </Picker>
             </View>
           </View> */}
 
-          <Button title="Register" onPress={validate} />
-          <Text
-            onPress={() => navigation.navigate("LoginScreen")}
-            style={{
-              color: COLORS.black,
-              fontWeight: "bold",
-              textAlign: "center",
-              fontSize: 16,
-            }}
-          >
-            Already have account ?Login
-          </Text>
-        </View>
-      </ScrollView>
+            <Button title="Register" onPress={validate} />
+            <Text
+              onPress={() => navigation.navigate("LoginScreen")}
+              style={{
+                color: COLORS.black,
+                fontWeight: "bold",
+                textAlign: "center",
+                fontSize: 16,
+              }}
+            >
+              Already have account ?Login
+            </Text>
+          </View>
+        </ScrollView>
+      </ImageBackground>
     </SafeAreaView>
   );
 };

@@ -16,9 +16,6 @@ import COLORS from "../consts/colors";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Loader from "../../components/Looder";
-import { Ionicons } from "@expo/vector-icons";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as SecureStore from "expo-secure-store";
 
 const Purchasecredit = ({ navigation }) => {
@@ -193,20 +190,21 @@ const Purchasecredit = ({ navigation }) => {
             onChangeText={(text) => handleOnchange(text, "name")}
             onFocus={() => handleError(null, "name")}
             iconName="person"
-            label="name"
+            label="Full Name"
             placeholder="Enter Full Name"
             error={errors.name}
           />
           <Input
             onChangeText={(text) => handleOnchange(text, "email")}
             onFocus={() => handleError(null, "email")}
-            Name="email-outline"
+            iconName="mail"
             label="Email Address"
             placeholder="Enter your Email"
             error={errors.email}
           />
           <Input
             keyboardType="numeric"
+            maxLength={16}
             onChangeText={(text) => handleOnchange(text, "CardNumber")}
             onFocus={() => handleError(null, "CardNumber")}
             iconName="person"
@@ -218,8 +216,8 @@ const Purchasecredit = ({ navigation }) => {
             <View style={{ flex: 1 }}>
               <Text style={{ fontSize: 14, color: COLORS.grey }}>Month </Text>
               <Input
-                style={{ fontSize: 12, color: COLORS.black }}
-                maxLength={17}
+                //style={{ fontSize: 12, color: COLORS.black }}
+                maxLength={2}
                 onChangeText={(text) => handleOnchange(text, "Month")}
                 onFocus={() => handleError(null, "Month")}
                 //iconName="email-outline"
@@ -233,8 +231,8 @@ const Purchasecredit = ({ navigation }) => {
             <View style={{ flex: 1, borderColor: "#cccccc", marginLeft: 10 }}>
               <Text style={{ fontSize: 14, color: COLORS.grey }}>Year</Text>
               <Input
-                style={{ fontSize: 14, color: COLORS.grey }}
-                maxLength={12}
+                //style={{ fontSize: 14, color: COLORS.grey }}
+                maxLength={4}
                 onChangeText={(text) => handleOnchange(text, "Year")}
                 onFocus={() => handleError(null, "Year")}
                 //iconName="email-outline"
@@ -247,7 +245,7 @@ const Purchasecredit = ({ navigation }) => {
           </View>
           <Text style={{ fontSize: 14, color: COLORS.grey }}>CVC</Text>
           <Input
-            style={{ fontSize: 14, color: COLORS.grey }}
+            // style={{ fontSize: 14, color: COLORS.grey }}
             maxLength={3}
             onChangeText={(text) => handleOnchange(text, "CVC")}
             onFocus={() => handleError(null, "CVC")}
@@ -258,8 +256,8 @@ const Purchasecredit = ({ navigation }) => {
             keyboardType="numeric"
           />
           <Input
-            style={{ fontSize: 14, color: COLORS.grey }}
-            maxLength={7}
+            // style={{ fontSize: 14, color: COLORS.grey }}
+            maxLength={4}
             onChangeText={(text) => {
               handleOnchange(text, "Amount"),
                 AsyncStorage.setItem("vAmount", text);
@@ -281,7 +279,18 @@ const Purchasecredit = ({ navigation }) => {
           >
             Click here to Purchase Credit
           </Text>
+
           <Button title="Purchase Credit" onPress={validate} />
+          <Text
+            onPress={() => navigation.navigate("HomeScreen")}
+            style={{
+              color: COLORS.black,
+              fontWeight: "bold",
+              textAlign: "center",
+              fontSize: 16,
+            }}
+          ></Text>
+
           <Text
             style={{
               color: COLORS.black,

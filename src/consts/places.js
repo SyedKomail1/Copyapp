@@ -12,14 +12,14 @@ const places = [
       id: '2',
       name: 'Hunza',
       location: 'Pakistan',
-      image: require('../assets/location7.jpg'),
+      image: require('../assets/location8.jpg'),
       details: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.`,
     },
     {
       id: '3',
       name: 'Swat',
       location: 'Pakistan',
-      image: require('../assets/location6.jpg'),
+      image: require('../assets/location8.jpg'),
       details: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.`,
     },
     {

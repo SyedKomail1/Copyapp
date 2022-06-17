@@ -43,7 +43,7 @@ const HomeScreen = ({ navigation }) => {
       name="tour"
       size={35}
       color={COLORS.primary}
-      onPress={() => navigation.navigate("TopToursScreen")}
+      onPress={() => navigation.navigate("TopToursScreen1")}
     />,
 
     <Fontisto
@@ -51,25 +51,6 @@ const HomeScreen = ({ navigation }) => {
       size={25}
       color={COLORS.primary}
       onPress={() => navigation.navigate("TourguideBoard")}
-    />,
-    <Ionicons
-      name="car"
-      size={35}
-      color={COLORS.primary}
-      onPress={() => navigation.navigate("Caronboardscreen")}
-    />,
-
-    <FontAwesome5
-      name="money-check-alt"
-      size={25}
-      color={COLORS.primary}
-      onPress={() => navigation.navigate("BudgetEstimateBoard")}
-    />,
-    <Ionicons
-      name="md-airplane"
-      size={35}
-      color={COLORS.primary}
-      onPress={() => navigation.navigate("TourPlannerBoard")}
     />,
   ];
 
@@ -252,19 +233,20 @@ const HomeScreen = ({ navigation }) => {
     );
   };
   // const balance = await SecureStore.getItemAsync("balance");con
-  const setBalance = async (amount) => {
-    const bal = await SecureStore.getItemAsync("balance");
-    console.log("setbalance", bal);
-    if (bal) {
-      setAmount(bal);
-    }
-    return bal;
-  };
+  // const setBalance = async (amount) => {
+  //   const bal = await SecureStore.getItemAsync("balance");
+  //   console.log("setbalance", bal);
+  //   if (bal) {
+  //     setAmount(bal);
+  //   }
+  //   return bal;
+  // };
 
-  const [amount, setAmount] = React.useState(0);
+  // const [amount, setAmount] = React.useState(0);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
       <StatusBar translucent={false} backgroundColor={COLORS.primary} />
+
       <View style={style.header}>
         <Ionicons
           name="person"
@@ -272,15 +254,15 @@ const HomeScreen = ({ navigation }) => {
           color={COLORS.white}
           onPress={() => navigation.navigate("Userprofile")}
         />
-
-        <Text>Balance {setBalance(amount)}</Text>
+        <Ionicons
+          name="cart"
+          size={28}
+          color={COLORS.white}
+          onPress={() => navigation.navigate("CartScreen")}
+        />
+        {/* <Text>Balance {setBalance(amount)}</Text> */}
       </View>
-
-      <View style={style.header1}>
-        <View style={{ marginLeft: 345 }}>
-          <Ionicons name="notifications" size={28} color={COLORS.white} />
-        </View>
-      </View>
+      <View style={style.header1}></View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
@@ -351,61 +333,6 @@ const HomeScreen = ({ navigation }) => {
             Hire a Tour Guide
           </Text>
         </TouchableOpacity>
-        <Category2 />
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Caronboardscreen")}
-        >
-          <Text
-            style={{
-              fontWeight: "bold",
-              color: COLORS.primary,
-              fontWeight: "bold",
-              fontSize: 20,
-              marginLeft: 30,
-
-              marginBottom: 30,
-            }}
-          >
-            Rent a Vehicle
-          </Text>
-        </TouchableOpacity>
-        <Category3 />
-        <TouchableOpacity
-          onPress={() => navigation.navigate("BudgetEstimateBoard")}
-        >
-          <Text
-            style={{
-              fontWeight: "bold",
-              color: COLORS.primary,
-              fontWeight: "bold",
-              fontSize: 20,
-              marginLeft: 30,
-
-              marginBottom: 30,
-            }}
-          >
-            Estimate Your Budget
-          </Text>
-        </TouchableOpacity>
-        <Category4 />
-
-        <TouchableOpacity onPress={() => navigation.navigate("TourPlanner")}>
-          <Text
-            style={{
-              fontWeight: "bold",
-              color: COLORS.primary,
-              fontWeight: "bold",
-              fontSize: 20,
-              marginLeft: 30,
-
-              marginBottom: 30,
-            }}
-          >
-            Get your Tour Planned
-          </Text>
-        </TouchableOpacity>
-
-        <View></View>
 
         <View
           style={{
@@ -416,100 +343,24 @@ const HomeScreen = ({ navigation }) => {
             paddingBottom: 20,
           }}
         >
-          <Text
-            style={{
-              fontWeight: "bold",
-              color: COLORS.black,
-              fontWeight: "bold",
-              fontSize: 20,
-            }}
-            onPress={() => navigation.navigate("TopToursScreen")}
-          >
-            Top Tours
-          </Text>
-
-          <View style={style.container}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("TopToursScreen")}
-            >
-              <Text style={style.textPart2}>Show All</Text>
-            </TouchableOpacity>
-          </View>
+          <View style={style.container}></View>
         </View>
 
-        <FlatList
-          contentContainerStyle={{ paddingLeft: 20, paddingBottom: 20 }}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={places}
-          renderItem={({ item }) => <Card place={item} />}
+        <Button
+          title="Review orders"
+          onPress={() => navigation.navigate("Review")}
         />
 
         <View
           style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginHorizontal: 20,
-            paddingTop: 20,
-            paddingBottom: 20,
+            marginBottom: 40,
           }}
         >
-          <Text
-            style={{
-              fontWeight: "bold",
-              color: COLORS.black,
-              fontWeight: "bold",
-              fontSize: 20,
-            }}
-            onPress={() => navigation.navigate("TopToursScreen")}
-          >
-            Best Featured
-          </Text>
-
-          <View style={style.container}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("TopToursScreen")}
-            >
-              <Text style={style.textPart2}>Show All</Text>
-            </TouchableOpacity>
-          </View>
+          <Button
+            title="Purchase Credit"
+            onPress={() => navigation.navigate("Purchasecredit")}
+          />
         </View>
-
-        <FlatList
-          contentContainerStyle={{ paddingLeft: 20, paddingBottom: 20 }}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={places}
-          renderItem={({ item }) => <Card3 place={item} />}
-        />
-
-        <Button
-          title="Purchasecredit"
-          onPress={() => navigation.navigate("Purchasecredit")}
-        />
-        <Button title="About" onPress={() => navigation.navigate("About")} />
-
-        <Button title="Review" onPress={() => navigation.navigate("Review")} />
-
-        <Button
-          title="Cart"
-          onPress={() => navigation.navigate("CartScreen")}
-        />
-
-        <Button
-          title="Tours"
-          onPress={() => navigation.navigate("TopToursScreen")}
-        />
-
-        <Button
-          title="AgencyHomeScreen"
-          onPress={() => navigation.navigate("AgencyHomeScreen")}
-        />
-
-        <Button
-          title="TgHomeScreen"
-          onPress={() => navigation.navigate("TgHomeScreen")}
-        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -556,6 +407,7 @@ const style = StyleSheet.create({
   },
   categoryContainer: {
     marginTop: 60,
+    alignItems: "center",
 
     marginHorizontal: 10,
     flexDirection: "row",

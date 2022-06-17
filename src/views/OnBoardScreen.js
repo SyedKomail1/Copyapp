@@ -10,13 +10,14 @@ import {
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import COLORS from "../consts/colors";
 
+
 const OnBoardScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
       <ImageBackground
         style={{ flex: 1 }}
-        source={require("../../assets/onboardImage3.jpg")}
+        source={require("../../assets/onboardImage445.jpg")}
       >
         <View style={style.details}>
           <Text
@@ -29,7 +30,7 @@ const OnBoardScreen = ({ navigation }) => {
           >
             Tour Book
           </Text>
-          <Text
+          {/* <Text
             style={{ color: COLORS.white, fontSize: 25, fontWeight: "bold" }}
           >
             Do Travelling with us
@@ -46,7 +47,7 @@ const OnBoardScreen = ({ navigation }) => {
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut
             sem non erat vehicula dignissim. Morbi eget congue ante, feugiat.
-          </Text>
+          </Text> */}
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => navigation.navigate("Started")}
@@ -67,14 +68,39 @@ const OnBoardScreen = ({ navigation }) => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity
+           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigation.navigate("TopToursScreen1")}
+            onPress={() => navigation.navigate("home")}
           >
             <View style={style.btn}>
-              <Text style={{ fontWeight: "bold" }}>For User Profile </Text>
+              <Text style={{ fontWeight: "bold" }}>tour screen </Text>
+            </View>
+          </TouchableOpacity> 
+
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate("About")}
+          >
+            <View style={style.btn}>
+              <Text style={{ fontWeight: "bold" }}>About </Text>
+            </View>
+          </TouchableOpacity> 
+
+         
+
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate("Home")}
+          >
+            <View style={style.btn}>
+              <Text style={{ fontWeight: "bold" }}>map </Text>
             </View>
           </TouchableOpacity>
+
+
+
+
+
         </View>
       </ImageBackground>
     </View>
@@ -96,6 +122,7 @@ const style = StyleSheet.create({
     borderRadius: 7,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 20,
   },
 });
 export default OnBoardScreen;
